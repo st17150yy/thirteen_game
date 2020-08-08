@@ -12,9 +12,14 @@ class MyListener(AbstractEventListener):
     def after_navigate_to(self, url, driver):
         print("After navigate to %s" % url)
 
+
+def merged(navigated_driver,merged_query='tile-merged'):
+	elements = navigated_driver.find_elements_by_class_name(merged_query)
+	return len(elements) != 0;
+
 driver = webdriver.Firefox()
 ef_driver = EventFiringWebDriver(driver, MyListener())
-ef_driver.get("https://asset-manager.bbcchannels.com/m/2fzi3/")
+ef_driver.get('https://asset-manager.bbcchannels.com/m/2fzi3/')
 
 
 element = ef_driver.find_element_by_class_name('best-container')
@@ -23,15 +28,38 @@ l = element.location
 actions = ActionChains(ef_driver)
 actions.move_by_offset(l['x'],l['y'])
 
-for i in range(0,15):
-	actions.click()
-	actions.key_down(Keys.LEFT)
-	actions.key_down(Keys.DOWN)
-	actions.key_down(Keys.RIGHT)
-	actions.key_down(Keys.DOWN)
+time.sleep(5)
 
+t = 0
+noMerge = False
+
+for i in range(0,200):
+	actions.click()
+
+	actions.key_down(Keys.LEFT)
+	actions.pause(t)
+	noMerge = not merged(ef_driver) and noMerge
+	
+	actions.key_down(Keys.DOWN)
+	actions.pause(t)
+	noMerge = not merged(ef_driver) and noMerge
+
+	actions.key_down(Keys.RIGHT)
+	actions.pause(t)
+	noMerge = not merged(ef_driver) and noMerge
+
+	actions.key_down(Keys.DOWN)
+	actions.pause(t)
+	noMerge = not merged(ef_driver) and noMerge
+
+	time.sleep(0)
+	
+	if noMerge:
+#		actions.key_down(Keys.UP)
+		actions.pause(t)
+		print("UP")
+	
 	actions.perform()
-	time.sleep(0.1)
 	actions = ActionChains(ef_driver)
 
 time.sleep(2)
