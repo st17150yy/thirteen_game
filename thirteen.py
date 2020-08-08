@@ -1,8 +1,7 @@
-from selenium.webdriver import Firefox
+from selenium import webdriver
 from selenium.webdriver.support.events import EventFiringWebDriver, AbstractEventListener
 
 from selenium.webdriver.common.keys import Keys
-
 from selenium.webdriver import ActionChains
 
 import time
@@ -13,24 +12,18 @@ class MyListener(AbstractEventListener):
     def after_navigate_to(self, url, driver):
         print("After navigate to %s" % url)
 
-driver = Firefox()
+driver = webdriver.Firefox()
 ef_driver = EventFiringWebDriver(driver, MyListener())
-# ef_driver.get("https://hello-flask0412.herokuapp.com")
-#ef_driver.get("https://www.doctorwho.tv/games/thirteen#_")
 ef_driver.get("https://asset-manager.bbcchannels.com/m/2fzi3/")
 
-# element = ef_driver.find_element_by_id("page-title")
-#element = ef_driver.find_element_by_xpath('/html/body/div/div[1]/div[2]') 
 
 element = ef_driver.find_element_by_class_name('best-container')
-#element = ef_driver.find_element_by_xpath('//*[@id="full-width"]/div[1]/div/iframe/html/body/div/div[1]/div[2]/div[1]') 
-l = (element.location)
-#element.send_keys("selenium")
-#element.send_keys(Keys.ENTER)
+l = element.location
 
 actions = ActionChains(ef_driver)
 actions.move_by_offset(l['x'],l['y'])
-for i in range(0,100):
+
+for i in range(0,15):
 	actions.click()
 	actions.key_down(Keys.LEFT)
 	actions.key_down(Keys.DOWN)
