@@ -29,10 +29,7 @@ ef_driver.get('https://asset-manager.bbcchannels.com/m/2fzi3/')
 
 
 element = ef_driver.find_element_by_class_name('best-container')
-l = element.location
-print(element.text)
 actions = ActionChains(ef_driver)
-actions.move_by_offset(l['x'],l['y'])
 
 #time.sleep(5)
 
@@ -40,7 +37,7 @@ t = 0
 init_score = getScore(ef_driver)
 score = init_score
 
-for i in range(0,10):
+for i in range(0,200):
 #	actions.click()
 
 	actions.key_down(Keys.LEFT)
@@ -78,3 +75,5 @@ print(element.text)
 time.sleep(2)
 # ブラウザを終了する。
 #ef_driver.close()
+
+
