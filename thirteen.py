@@ -39,7 +39,7 @@ past_init_score = init_score
 score = init_score
 score_changed = True
 
-for i in range(0,20):
+for i in range(0,100):
 #	actions.click()
 
 	init_score = getScore(ef_driver)
@@ -97,18 +97,31 @@ length = len(table_list)
 for i in range(len(table_list)):
     if i+1 < length :
         if table_list[i] == table_list[i+1]:
-            table_list.pop(i)
-            table_list.pop(i)
-            length -= 2
+            table_list[i] = ''
+            table_list[i+1] = ''
+            # table_list.pop(i)
+            # table_list.pop(i)
+            # length -= 2
 
-
-
+try:
+    for item in table_list:
+        table_list.remove('')
+except:
+        print("END")    
+        
+print('list-length : ',len(table_list))
 print(table)
 print(table_list)
-print('row table\n',element.get_attribute('innerHTML'))
+print('row table\n',element.get_attribute('innerHTML').replace('<div class="tile-inner"></div></div>','\n'))
+
+
+
 element = ef_driver.find_element_by_class_name('best-container')
 l = element.location
+
 print(element.text)
+
+
 
 #time.sleep(2)
 # ブラウザを終了する。
