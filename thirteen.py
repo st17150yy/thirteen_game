@@ -43,21 +43,22 @@ for i in range(0,100):
 #	actions.click()
 
 	init_score = getScore(ef_driver)
+	actions.key_down(Keys.DOWN)
+	actions.pause(t)
 	actions.key_down(Keys.LEFT)
 	actions.pause(t)
 
-
 	actions.key_down(Keys.DOWN)
 	actions.pause(t)
-	"""
+
 	actions.key_down(Keys.RIGHT)
 	actions.pause(t)
 
-
+	"""
 	actions.key_down(Keys.DOWN)
 	actions.pause(t)
 	"""
-
+	"""
 	time.sleep(0)
 	if getScore(ef_driver) == init_score:
 		actions.key_down(Keys.RIGHT)
@@ -66,11 +67,11 @@ for i in range(0,100):
 		actions.pause(t)
 #		print("RIGHT!!")
 
-		if past_init_score == init_score:
-			ActionChains(ef_driver).key_down(Keys.UP).perform()
+#		if past_init_score == init_score:
+#			ActionChains(ef_driver).key_down(Keys.UP).perform()
 #			print("UP!!")
 		past_init_score = init_score
-
+	"""
 	actions.perform()
 
 
@@ -90,6 +91,7 @@ table = table.replace('">',')')
 table = table.replace('tile','')
 table = table.replace(' ,new','')
 table = table.replace(' ,merged','')
+table = table.replace(' ','')
 table_list = table.split('\n')
 
 # print('merged : ',NbMerged)
@@ -103,16 +105,24 @@ for i in range(len(table_list)):
             # table_list.pop(i)
             # length -= 2
 
+length = len(table_list)
+
+
 try:
     for item in table_list:
         table_list.remove('')
 except:
         print("END")    
-        
+
+for item in table_list:
+	item.split(',')
+	
+
+
 print('list-length : ',len(table_list))
-print(table)
+#print(table)
 print(table_list)
-print('row table\n',element.get_attribute('innerHTML').replace('<div class="tile-inner"></div></div>','\n'))
+#print('row table\n',element.get_attribute('innerHTML').replace('<div class="tile-inner"></div></div>','\n'))
 
 
 
